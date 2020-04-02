@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:abushakir/abushakir.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ethiopian_calendar/blocs/blocs.dart';
 import 'package:ethiopian_calendar/screens/calendar.dart';
 import 'package:ethiopian_calendar/screens/bahireHasab.dart';
 
@@ -24,7 +26,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Ethiopian Calendar'),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<CalendarBloc>(
+            create: (BuildContext context) => CalendarBloc(currentMoment: ETC.today()),
+          )
+        ],
+        child: MyHomePage(title: 'Ethiopian Calendar'),
+      ),
     );
   }
 }
