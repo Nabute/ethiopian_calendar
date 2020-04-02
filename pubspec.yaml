@@ -1,0 +1,28 @@
+name: ethiopian_calendar
+description: A Flutter application to demonstrate Abushakir dart package.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+  flutter_bloc: ^3.2.0
+  meta: ^1.1.6
+  equatable: ^1.0.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  abushakir:
+    git:
+      url: https://github.com/Nabute/Abushakir.git
+      ref: master
+
+flutter:
+
+  uses-material-design: true
