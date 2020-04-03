@@ -6,21 +6,17 @@ import 'calendar.dart';
 
 class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   final ETC currentMoment;
-  static int today;
 
   CalendarBloc({@required this.currentMoment});
 
   @override
-  CalendarState get initialState {
-    today = currentMoment.day;
-    Month(currentMoment);
-  }
+  CalendarState get initialState => Month(currentMoment);
 
   @override
   Stream<CalendarState> mapEventToState(CalendarEvent event) async* {
-    if (event is NextMonthCalendar) {
+    if (event is NextMonthCalendar){
       yield* _getNextMonth(event);
-    } else if (event is PrevMonthCalendar) {
+    }else if(event is PrevMonthCalendar){
       yield* _getPreviousMonth(event);
     }
   }

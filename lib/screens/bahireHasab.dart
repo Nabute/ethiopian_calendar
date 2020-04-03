@@ -1,6 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:abushakir/abushakir.dart';
 
-class MyBahireHasab extends StatelessWidget {
+class MyBahireHasab extends StatefulWidget {
+  @override
+  _MyBahireHasabState createState() => _MyBahireHasabState();
+}
+
+class _MyBahireHasabState extends State<MyBahireHasab> {
+  int dropdownValue;
+  List<DropdownMenuItem<int>> dropDownMenuItems;
+
+  Map<String, dynamic> wenber = {"key": "ወንበር"};
+  Map<String, dynamic> metkih = {"key": "መጥቅህ"};
+  Map<String, dynamic> abekte = {"key": "አበቅቴ"};
+
+  Map<String, dynamic> meskerem1 = {"key": "መስከረም 1"};
+  Map<String, dynamic> wengelawi = {"key": "ወንጌላዊ"};
+
+  List<dynamic> bealat = [];
+
+  @override
+  void initState() {
+    dropDownMenuItems = getDropDownMenuItems();
+    dropdownValue = EtDatetime.now().year;
+    computeBahireHasab(dropdownValue);
+    super.initState();
+  }
+
+  List<DropdownMenuItem<int>> getDropDownMenuItems() {
+    List<DropdownMenuItem<int>> items = new List();
+    for (int i = 1900; i < 2100; i++) {
+      items.add(new DropdownMenuItem(value: i, child: new Text(i.toString())));
+    }
+    return items;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -8,26 +42,33 @@ class MyBahireHasab extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
+            Text(
+              "Please Select a year ",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 10.0),
-              width: 300,
-              child: TextFormField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                        borderSide: BorderSide(
-                            color: Colors.black, style: BorderStyle.solid)),
-                    prefixIcon: Icon(Icons.event),
-                    labelText: 'Enter a Year',
-                    isDense: true),
-                keyboardType: TextInputType.number,
-                validator: (val) {
-                  if (val.length > 4) {
-                    return "Year should be multiple of thousand";
-                  } else {
-                    return null;
-                  }
-                },
+              width: 100,
+              decoration: new BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  border: new Border.all(color: Colors.black38)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: DropdownButton<int>(
+                    value: dropdownValue,
+                    icon: Icon(Icons.keyboard_arrow_down),
+                    iconSize: 24,
+                    elevation: 16,
+                    isDense: true,
+                    autofocus: true,
+                    style: TextStyle(color: Colors.black),
+                    onChanged: (int newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                        computeBahireHasab(newValue);
+                      });
+                    },
+                    items: dropDownMenuItems),
               ),
             ),
           ],
@@ -40,9 +81,9 @@ class MyBahireHasab extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              _buildDaysandConstants({'description': "Wenber", "value": 12}),
-              _buildDaysandConstants({'description': "Metkih", "value": 12}),
-              _buildDaysandConstants({'description': "Abekte", "value": 12}),
+              _buildDaysandConstants(abekte),
+              _buildDaysandConstants(metkih),
+              _buildDaysandConstants(wenber),
             ],
           ),
         ),
@@ -51,10 +92,8 @@ class MyBahireHasab extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              _buildDaysandConstants(
-                  {'description': "Year Start Day", "value": "ማግሰኞ"}),
-              _buildDaysandConstants(
-                  {'description': "Evangelist", "value": "ሉቃስ"}),
+              _buildDaysandConstants(meskerem1),
+              _buildDaysandConstants(wengelawi),
             ],
           ),
         ),
@@ -106,14 +145,14 @@ class MyBahireHasab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            "${payload['value']}",
+            "${payload['key']}",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
             textAlign: TextAlign.center,
           ),
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Text(
-              payload['description'],
+              "${payload['value']}",
               style: TextStyle(fontSize: 16),
               textAlign: TextAlign.center,
             ),
@@ -123,25 +162,19 @@ class MyBahireHasab extends StatelessWidget {
     );
   }
 
+  void computeBahireHasab(int year){
+    BahireHasab bh = new BahireHasab(year: year);
+    wenber['value'] = bh.wenber;
+    abekte['value'] = bh.abekte;
+    metkih['value'] = bh.metkih;
+    meskerem1['value'] = bh.getMeskeremOne();
+    wengelawi['value'] = bh.getEvangelist(returnName: true);
+
+    bealat = bh.allAtswamat;
+
+  }
+
   Widget _buildFeastandHoliday() {
-    List<Map<String, dynamic>> bealat = [
-      {
-        "beal": "ነነዌ",
-        "day": {"month": "የካቲት", "date": 11}
-      },
-      {
-        "beal": "ዓቢይ ጾም",
-        "day": {"month": "የካቲት", "date": 25}
-      },
-      {
-        "beal": "ደብረ ዘይት",
-        "day": {"month": "መጋቢት", "date": 22}
-      },
-      {
-        "beal": "ሆሣዕና",
-        "day": {"month": "ሚያዝያ", "date": 13}
-      },
-    ];
     return ListView.builder(
       itemCount: bealat.length,
       itemBuilder: (BuildContext context, int index) {

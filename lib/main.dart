@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider<CalendarBloc>(
             create: (BuildContext context) => CalendarBloc(currentMoment: ETC.today()),
-          )
+          ),
         ],
         child: MyHomePage(title: 'Ethiopian Calendar'),
       ),
