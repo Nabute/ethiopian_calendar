@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
       home: MultiBlocProvider(
         providers: [
           BlocProvider<CalendarBloc>(
-            create: (BuildContext context) => CalendarBloc(currentMoment: ETC.today()),
+            create: (BuildContext context) =>
+                CalendarBloc(currentMoment: ETC.today()),
           ),
         ],
         child: MyHomePage(title: 'Ethiopian Calendar'),

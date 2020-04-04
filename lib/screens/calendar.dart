@@ -4,7 +4,8 @@ import 'package:abushakir/abushakir.dart';
 import 'package:ethiopian_calendar/blocs/blocs.dart';
 
 class MyCalendar extends StatelessWidget {
-//  int today;
+  EtDatetime _today = EtDatetime.now();
+
   List<Text> _days = [
     Text(
       "ሰ",
@@ -75,7 +76,8 @@ class MyCalendar extends StatelessWidget {
                             Container(
                               child: _myTime(
                                   EtDatetime.fromMillisecondsSinceEpoch(
-                                      snapshot.data)),
+                                      snapshot.data + (3 * 3600000) // since Ethiopian is GMT+3
+                                      )),
                             )
                           ],
                         ),
@@ -173,8 +175,13 @@ class MyCalendar extends StatelessWidget {
             ),
           );
         } else {
-          if (a.monthDays().toList()[index - a.monthDays().toList()[0][3]][2] ==
-              today) {
+          // mark if currentday == today
+          if (a.monthDays().toList()[index - a.monthDays().toList()[0][3]][0] ==
+                  EtDatetime.now().year &&
+              a.monthDays().toList()[index - a.monthDays().toList()[0][3]][1] ==
+                  EtDatetime.now().month &&
+              a.monthDays().toList()[index - a.monthDays().toList()[0][3]][2] ==
+                  EtDatetime.now().day) {
             return Padding(
               padding: EdgeInsets.all(8.0),
               child: Container(

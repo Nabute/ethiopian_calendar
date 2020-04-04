@@ -6,7 +6,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "24c3e01563d3e1538442edf0ac36ebc42be28cd4"
+      resolved-ref: "695eaf493de89cfc71a909060930666c1e5747a1"
       url: "https://github.com/Nabute/Abushakir.git"
     source: git
     version: "0.0.1"
