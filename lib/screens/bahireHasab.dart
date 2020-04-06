@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:abushakir/abushakir.dart';
+import 'package:ethiopian_calendar/size_config.dart';
 
 class MyBahireHasab extends StatefulWidget {
   @override
@@ -44,20 +45,24 @@ class _MyBahireHasabState extends State<MyBahireHasab> {
           children: <Widget>[
             Text(
               "Please Select a year ",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 2.45 * SizeConfig.textMultiplier,
+                  fontWeight: FontWeight.bold),
             ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 10.0),
-              width: 100,
+              padding: EdgeInsets.symmetric(
+                  vertical: 1.225 * SizeConfig.heightMultiplier),
+              width: 23.15 * SizeConfig.widthMultiplier,
               decoration: new BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
                   border: new Border.all(color: Colors.black38)),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 3.47 * SizeConfig.widthMultiplier),
                 child: DropdownButton<int>(
                     value: dropdownValue,
                     icon: Icon(Icons.keyboard_arrow_down),
-                    iconSize: 24,
+                    iconSize: 5.5 * SizeConfig.imageSizeMultiplier,
                     elevation: 16,
                     isDense: true,
                     autofocus: true,
@@ -74,10 +79,12 @@ class _MyBahireHasabState extends State<MyBahireHasab> {
           ],
         ),
         SizedBox(
-          height: 10,
+          height: 1.225 * SizeConfig.heightMultiplier,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+          padding: EdgeInsets.symmetric(
+              horizontal: 4.63 * SizeConfig.widthMultiplier,
+              vertical: 0.98 * SizeConfig.heightMultiplier),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -88,7 +95,8 @@ class _MyBahireHasabState extends State<MyBahireHasab> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: EdgeInsets.symmetric(
+              horizontal: 4.63 * SizeConfig.widthMultiplier),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -98,8 +106,11 @@ class _MyBahireHasabState extends State<MyBahireHasab> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(
-              left: 20.0, right: 20.0, top: 20.0, bottom: 10),
+          padding: EdgeInsets.only(
+              left: 4.63 * SizeConfig.widthMultiplier,
+              right: 4.63 * SizeConfig.widthMultiplier,
+              top: 2.45 * SizeConfig.heightMultiplier,
+              bottom: 1.2255 * SizeConfig.heightMultiplier),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -108,21 +119,23 @@ class _MyBahireHasabState extends State<MyBahireHasab> {
                   children: <Widget>[
                     Divider(
                       color: Colors.black,
-                      endIndent: 15,
+                      endIndent: 3.47 * SizeConfig.widthMultiplier,
                     )
                   ],
                 ),
               ),
               Text(
                 "በአላት",
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 3.06 * SizeConfig.textMultiplier),
               ),
               Expanded(
                 child: Column(
                   children: <Widget>[
                     Divider(
                       color: Colors.black,
-                      indent: 15,
+                      indent: 3.47 * SizeConfig.widthMultiplier,
                     )
                   ],
                 ),
@@ -139,21 +152,23 @@ class _MyBahireHasabState extends State<MyBahireHasab> {
 
   Widget _buildDaysandConstants(Map<String, dynamic> payload) {
     return Container(
-      height: 60,
+      height: 7.35 * SizeConfig.heightMultiplier,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             "${payload['key']}",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 2.818 * SizeConfig.textMultiplier),
             textAlign: TextAlign.center,
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding: EdgeInsets.only(right: 2.31 * SizeConfig.widthMultiplier),
             child: Text(
               "${payload['value']}",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 1.96 * SizeConfig.textMultiplier),
               textAlign: TextAlign.center,
             ),
           ),
@@ -162,7 +177,7 @@ class _MyBahireHasabState extends State<MyBahireHasab> {
     );
   }
 
-  void computeBahireHasab(int year){
+  void computeBahireHasab(int year) {
     BahireHasab bh = new BahireHasab(year: year);
     wenber['value'] = bh.wenber;
     abekte['value'] = bh.abekte;
@@ -171,7 +186,6 @@ class _MyBahireHasabState extends State<MyBahireHasab> {
     wengelawi['value'] = bh.getEvangelist(returnName: true);
 
     bealat = bh.allAtswamat;
-
   }
 
   Widget _buildFeastandHoliday() {
@@ -179,28 +193,34 @@ class _MyBahireHasabState extends State<MyBahireHasab> {
       itemCount: bealat.length,
       itemBuilder: (BuildContext context, int index) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          padding: EdgeInsets.symmetric(
+              horizontal: 4.63 * SizeConfig.widthMultiplier,
+              vertical: 1.225 * SizeConfig.heightMultiplier),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
                 bealat[index]["beal"],
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 19),
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 2.33 * SizeConfig.textMultiplier),
               ),
               Expanded(
                 child: Column(
                   children: <Widget>[
                     Divider(
                       color: Colors.black,
-                      indent: 30,
-                      endIndent: 30,
+                      indent: 6.9 * SizeConfig.widthMultiplier,
+                      endIndent: 6.9 * SizeConfig.widthMultiplier,
                     )
                   ],
                 ),
               ),
               Text(
                 "${bealat[index]["day"]["month"]}, ${bealat[index]["day"]["date"]}",
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 19),
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 2.33 * SizeConfig.textMultiplier),
               ),
             ],
           ),

@@ -2,6 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:abushakir/abushakir.dart';
 import 'package:ethiopian_calendar/blocs/blocs.dart';
+import 'package:ethiopian_calendar/size_config.dart';
+
+const List<String> _dayNumbers = [
+  "፩",
+  "፪",
+  "፫",
+  "፬",
+  "፭",
+  "፮",
+  "፯",
+  "፰",
+  "፱",
+  "፲",
+  "፲፩",
+  "፲፪",
+  "፲፫",
+  "፲፬",
+  "፲፭",
+  "፲፮",
+  "፲፯",
+  "፲፰",
+  "፲፱",
+  "፳",
+  "፳፩",
+  "፳፪",
+  "፳፫",
+  "፳፬",
+  "፳፭",
+  "፳፮",
+  "፳፯",
+  "፳፰",
+  "፳፱",
+  "፴",
+];
 
 class MyCalendar extends StatelessWidget {
   EtDatetime _today = EtDatetime.now();
@@ -9,14 +43,34 @@ class MyCalendar extends StatelessWidget {
   List<Text> _days = [
     Text(
       "ሰ",
-      style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+      style: TextStyle(
+          fontSize: 2.08335 * SizeConfig.textMultiplier,
+          fontWeight: FontWeight.bold),
     ),
-    Text("ማ", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-    Text("ረ", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-    Text("ሐ", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-    Text("አ", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-    Text("ቅ", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-    Text("እ", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+    Text("ማ",
+        style: TextStyle(
+            fontSize: 2.08335 * SizeConfig.textMultiplier,
+            fontWeight: FontWeight.bold)),
+    Text("ረ",
+        style: TextStyle(
+            fontSize: 2.08335 * SizeConfig.textMultiplier,
+            fontWeight: FontWeight.bold)),
+    Text("ሐ",
+        style: TextStyle(
+            fontSize: 2.08335 * SizeConfig.textMultiplier,
+            fontWeight: FontWeight.bold)),
+    Text("አ",
+        style: TextStyle(
+            fontSize: 2.08335 * SizeConfig.textMultiplier,
+            fontWeight: FontWeight.bold)),
+    Text("ቅ",
+        style: TextStyle(
+            fontSize: 2.08335 * SizeConfig.textMultiplier,
+            fontWeight: FontWeight.bold)),
+    Text("እ",
+        style: TextStyle(
+            fontSize: 2.08335 * SizeConfig.textMultiplier,
+            fontWeight: FontWeight.bold)),
   ];
 
   String clockDivision(int hour) {
@@ -53,7 +107,6 @@ class MyCalendar extends StatelessWidget {
             },
           )),
           Container(
-            padding: EdgeInsets.only(top: 0.0),
             child: StreamBuilder<int>(
               stream: EtDatetime.now().clock(),
               builder: (context, snapshot) {
@@ -69,21 +122,25 @@ class MyCalendar extends StatelessWidget {
                   return Column(
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(
+                            0.9803 * SizeConfig.heightMultiplier),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
                             Container(
                               child: _myTime(
                                   EtDatetime.fromMillisecondsSinceEpoch(
-                                      snapshot.data + (3 * 3600000) // since Ethiopian is GMT+3
+                                      snapshot.data +
+                                          (3 *
+                                              3600000) // since Ethiopian is GMT+3
                                       )),
                             )
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 80.0),
+                        padding: EdgeInsets.only(
+                            bottom: 4.803 * SizeConfig.heightMultiplier),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
@@ -113,7 +170,7 @@ class MyCalendar extends StatelessWidget {
         IconButton(
           icon: Icon(Icons.chevron_left),
           color: Colors.black,
-          iconSize: 30.0,
+          iconSize: 6.94 * SizeConfig.imageSizeMultiplier,
           onPressed: () {
             BlocProvider.of<CalendarBloc>(context).add(PrevMonthCalendar(a));
           },
@@ -121,11 +178,13 @@ class MyCalendar extends StatelessWidget {
         Text(
           "${a.monthName}, ${a.year}",
           style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 19.0, color: Colors.black),
+              fontWeight: FontWeight.bold,
+              fontSize: 3.177 * SizeConfig.textMultiplier,
+              color: Colors.black),
         ),
         IconButton(
           icon: Icon(Icons.chevron_right),
-          iconSize: 30.0,
+          iconSize: 6.94 * SizeConfig.imageSizeMultiplier,
           onPressed: () {
             BlocProvider.of<CalendarBloc>(context).add(NextMonthCalendar(a));
           },
@@ -140,7 +199,9 @@ class MyCalendar extends StatelessWidget {
         children: _days.asMap().entries.map((MapEntry map) {
           return Container(
             child: map.value,
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+            padding: EdgeInsets.symmetric(
+                horizontal: 4.63 * SizeConfig.widthMultiplier,
+                vertical: 1.838 * SizeConfig.heightMultiplier),
           );
         }).toList());
   }
@@ -150,7 +211,9 @@ class MyCalendar extends StatelessWidget {
     return GridView.count(
       shrinkWrap: true,
       primary: false,
-      padding: const EdgeInsets.all(3),
+      padding: EdgeInsets.symmetric(
+          horizontal: 0.694 * SizeConfig.widthMultiplier,
+          vertical: 0.3676 * SizeConfig.heightMultiplier),
       crossAxisCount: 7,
       children: List.generate(
           a.monthDays().toList().length + a.monthDays().toList()[0][3],
@@ -159,11 +222,13 @@ class MyCalendar extends StatelessWidget {
             index < a.monthDays().toList()[0][3]) {
           // NULL printer
           return Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.symmetric(
+                vertical: 0.98 * SizeConfig.heightMultiplier,
+                horizontal: 1.852 * SizeConfig.widthMultiplier),
             child: Container(
               alignment: Alignment.center,
-              height: 10.0,
-              width: 10.0,
+              height: 1.225 * SizeConfig.heightMultiplier,
+              width: 2.315 * SizeConfig.widthMultiplier,
               child: Text(
                 "",
                 style: TextStyle(color: Colors.black),
@@ -183,11 +248,13 @@ class MyCalendar extends StatelessWidget {
               a.monthDays().toList()[index - a.monthDays().toList()[0][3]][2] ==
                   EtDatetime.now().day) {
             return Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.symmetric(
+                  vertical: 0.98 * SizeConfig.heightMultiplier,
+                  horizontal: 1.852 * SizeConfig.widthMultiplier),
               child: Container(
                 alignment: Alignment.center,
-                height: 10.0,
-                width: 10.0,
+                height: 1.225 * SizeConfig.heightMultiplier,
+                width: 2.315 * SizeConfig.widthMultiplier,
                 child: Text(
                   "${a.monthDays().toList()[index - a.monthDays().toList()[0][3]][2]}",
                   style: TextStyle(color: Colors.black),
@@ -200,11 +267,13 @@ class MyCalendar extends StatelessWidget {
             );
           }
           return Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.symmetric(
+                vertical: 0.98 * SizeConfig.heightMultiplier,
+                horizontal: 1.852 * SizeConfig.widthMultiplier),
             child: Container(
               alignment: Alignment.center,
-              height: 10.0,
-              width: 10.0,
+              height: 1.225 * SizeConfig.heightMultiplier,
+              width: 2.315 * SizeConfig.widthMultiplier,
               child: Text(
                 "${a.monthDays().toList()[index - a.monthDays().toList()[0][3]][2]}",
                 style: TextStyle(color: Colors.black),
@@ -221,26 +290,36 @@ class MyCalendar extends StatelessWidget {
   }
 
   Widget _myTime(EtDatetime dt) {
-    int hour = 11, minute = 11, second = 11;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(bottom: 10, right: 10),
+          padding: EdgeInsets.only(
+            bottom: 1.225 * SizeConfig.heightMultiplier,
+            right: 2.315 * SizeConfig.widthMultiplier,
+          ),
           child: Text(
             clockDivision(dt.hour),
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w100),
+            style: TextStyle(
+                fontSize: 5.016 * SizeConfig.textMultiplier,
+                fontWeight: FontWeight.w100),
           ),
         ),
         Text(
-          "${(dt.hour < 10) ? "0" + (dt.hour == 0 ? 12 + 6 : dt.hour + 6).toString() : ((dt.hour + 6) % 12 < 10 ? "0" + ((dt.hour + 6) % 12).toString() : ((dt.hour + 6) % 12))}:${(dt.minute < 10) ? "0" + dt.minute.toString() : dt.minute}:",
-          style: TextStyle(fontSize: 70, fontWeight: FontWeight.w200),
+          "${_formatHour(dt.hour + 6)}:${(dt.minute < 10) ? "0" + dt.minute.toString() : dt.minute}:",
+          style: TextStyle(
+              fontSize: 8.58 * SizeConfig.textMultiplier,
+              fontWeight: FontWeight.w200),
         ),
         Padding(
-          padding: const EdgeInsets.only(bottom: 10.0),
+          padding: EdgeInsets.only(
+            bottom: 1.225 * SizeConfig.heightMultiplier,
+          ),
           child: Text(
               "${(dt.second < 10) ? "0" + dt.second.toString() : dt.second}",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300)),
+              style: TextStyle(
+                  fontSize: 5.016 * SizeConfig.textMultiplier,
+                  fontWeight: FontWeight.w300)),
         ),
       ],
     );
@@ -250,10 +329,20 @@ class MyCalendar extends StatelessWidget {
     return Row(
       children: <Widget>[
         Text(
-          "${dt.monthGeez} ${(dt.day < 10) ? "0" + dt.day.toString() : dt.day}, ${dt.year}",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          "${dt.monthGeez} ${(dt.day < 10) ? _dayNumbers[dt.day] : _dayNumbers[dt.day - 1]}, ${dt.year}",
+          style: TextStyle(
+              fontSize: 2.45 * SizeConfig.textMultiplier,
+              fontWeight: FontWeight.w500),
         ),
       ],
     );
+  }
+
+  String _formatHour(int hour) {
+    if (hour < 10) {
+      return hour == 0 ? "12": "0$hour";
+    } else {
+      return "${hour > 12 ? hour % 12 : hour}";
+    }
   }
 }

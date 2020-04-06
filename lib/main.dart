@@ -5,6 +5,8 @@ import 'package:ethiopian_calendar/blocs/blocs.dart';
 import 'package:ethiopian_calendar/screens/calendar.dart';
 import 'package:ethiopian_calendar/screens/bahireHasab.dart';
 
+import 'package:ethiopian_calendar/size_config.dart';
+
 void main() => runApp(MyApp());
 
 const List<String> _weekdays = [
@@ -20,21 +22,30 @@ const List<String> _weekdays = [
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider<CalendarBloc>(
-            create: (BuildContext context) =>
-                CalendarBloc(currentMoment: ETC.today()),
-          ),
-        ],
-        child: MyHomePage(title: 'Ethiopian Calendar'),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return OrientationBuilder(
+          builder: (context, orientation) {
+            SizeConfig().init(constraints, orientation);
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Ethiopian Calendar',
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
+              ),
+              home: MultiBlocProvider(
+                providers: [
+                  BlocProvider<CalendarBloc>(
+                    create: (BuildContext context) =>
+                        CalendarBloc(currentMoment: ETC.today()),
+                  ),
+                ],
+                child: MyHomePage(title: 'Abushakir'),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
@@ -51,7 +62,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   EtDatetime a = new EtDatetime.now();
   int _selectedIndex = 0;
-  TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> _widgetOptions = <Widget>[MyCalendar(), MyBahireHasab()];
 
   void _onItemTapped(int index) {
@@ -68,7 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
         elevation: 0.0,
         title: Text(
           widget.title,
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+              color: Colors.black, fontSize: 3.06 * SizeConfig.textMultiplier),
         ),
         actions: <Widget>[
           IconButton(
@@ -79,14 +90,20 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
-            title: Text('Calendar'),
+            title: Text('Calendar',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 1.96 * SizeConfig.textMultiplier)),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.event_note),
-            title: Text('BahireHasab'),
+            title: Text('BahireHasab',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 1.96 * SizeConfig.textMultiplier)),
           )
         ],
         currentIndex: _selectedIndex,
