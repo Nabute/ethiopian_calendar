@@ -1,6 +1,6 @@
-# ehtiopiacalendar
+# Ethiopian Calendar
 
-A Flutter application to demonstrate Abushakir dart package.
+A Flutter application to demonstrate [**Abushakir**](https://pub.dev/packages/abushakir) dart package.
 
 ## Getting Started
 
