@@ -40,6 +40,7 @@ const List<String> _dayNumbers = [
 class MyCalendar extends StatelessWidget {
   EtDatetime _today = EtDatetime.now();
 
+
   List<Text> _days = [
     Text(
       "ሰ",
@@ -101,7 +102,19 @@ class MyCalendar extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 5),
                       child: _nameAndActions(context, month)),
                   _dayNames(),
-                  Expanded(child: _daysGridList(context, month)),
+                  Expanded(
+                      child: GestureDetector(
+                    onPanEnd: (e) {
+                      if (e.velocity.pixelsPerSecond.dx < 0) {
+                        BlocProvider.of<CalendarBloc>(context)
+                            .add(NextMonthCalendar(month));
+                      } else if (e.velocity.pixelsPerSecond.dx > 0) {
+                        BlocProvider.of<CalendarBloc>(context)
+                            .add(PrevMonthCalendar(month));
+                      }
+                    },
+                    child: _daysGridList(context, month),
+                  )),
                 ],
               );
             },
@@ -116,7 +129,7 @@ class MyCalendar extends StatelessWidget {
                   return Text("Clock Stopped.",
                       style: TextStyle(color: Colors.black));
                 else if (snapshot.hasError)
-                  return Text('Error Occured.',
+                  return Text('Error Occurred.',
                       style: TextStyle(color: Colors.black));
                 else {
                   return Column(
@@ -235,7 +248,7 @@ class MyCalendar extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(60),
               ),
             ),
           );
@@ -261,7 +274,7 @@ class MyCalendar extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: Colors.teal[300],
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(55),
                 ),
               ),
             );
@@ -280,7 +293,7 @@ class MyCalendar extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(80),
               ),
             ),
           );
@@ -309,7 +322,7 @@ class MyCalendar extends StatelessWidget {
           "${_formatHour(dt.hour + 6)}:${(dt.minute < 10) ? "0" + dt.minute.toString() : dt.minute}:",
           style: TextStyle(
               fontSize: 8.58 * SizeConfig.textMultiplier,
-              fontWeight: FontWeight.w200),
+              fontWeight: FontWeight.w400),
         ),
         Padding(
           padding: EdgeInsets.only(
@@ -329,9 +342,9 @@ class MyCalendar extends StatelessWidget {
     return Row(
       children: <Widget>[
         Text(
-          "${dt.monthGeez} ${(dt.day < 10) ? _dayNumbers[dt.day] : _dayNumbers[dt.day - 1]}, ${dt.year}",
+          "${dt.monthGeez} ${_dayNumbers[dt.day - 1]}, ${ConvertToEthiopic(dt.year)}",
           style: TextStyle(
-              fontSize: 2.45 * SizeConfig.textMultiplier,
+              fontSize: 3.0 * SizeConfig.textMultiplier,
               fontWeight: FontWeight.w500),
         ),
       ],
@@ -340,9 +353,9 @@ class MyCalendar extends StatelessWidget {
 
   String _formatHour(int hour) {
     if (hour < 10) {
-      return hour == 0 ? "12": "0$hour";
+      return hour == 0 ? "12" : "0$hour";
     } else {
-      return "${hour > 12 ? hour % 12 : hour}";
+      return "${hour > 12 ? hour % 12 < 10 ? "0${hour % 12}" : hour % 12 : hour}";
     }
   }
 }

@@ -182,7 +182,7 @@ class _MyBahireHasabState extends State<MyBahireHasab> {
     wenber['value'] = bh.wenber;
     abekte['value'] = bh.abekte;
     metkih['value'] = bh.metkih;
-    meskerem1['value'] = bh.getMeskeremOne();
+    meskerem1['value'] = bh.getMeskeremOne(returnName: true);
     wengelawi['value'] = bh.getEvangelist(returnName: true);
 
     bealat = bh.allAtswamat;

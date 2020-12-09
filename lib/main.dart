@@ -79,14 +79,14 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(
           widget.title,
           style: TextStyle(
-              color: Colors.black, fontSize: 3.06 * SizeConfig.textMultiplier),
+              color: Colors.black, fontSize: 3.1 * SizeConfig.textMultiplier),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.language),
-            color: Colors.black,
-          )
-        ],
+        // actions: <Widget>[
+        //   IconButton(
+        //     icon: Icon(Icons.language),
+        //     color: Colors.black,
+        //   )
+        // ],
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
